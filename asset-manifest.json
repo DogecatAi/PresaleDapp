@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/PresaleDapp/static/css/main.e0996080.css",
-    "main.js": "/PresaleDapp/static/js/main.e7ff5017.js",
+    "main.js": "/PresaleDapp/static/js/main.d7cdb001.js",
     "static/js/453.df3bf070.chunk.js": "/PresaleDapp/static/js/453.df3bf070.chunk.js",
     "static/media/background.png": "/PresaleDapp/static/media/background.f6c20d8ea9910550475f.png",
     "static/media/dogecatai.png": "/PresaleDapp/static/media/dogecatai.e1ca61063986be7d986d.png",
     "index.html": "/PresaleDapp/index.html",
     "main.e0996080.css.map": "/PresaleDapp/static/css/main.e0996080.css.map",
-    "main.e7ff5017.js.map": "/PresaleDapp/static/js/main.e7ff5017.js.map",
+    "main.d7cdb001.js.map": "/PresaleDapp/static/js/main.d7cdb001.js.map",
     "453.df3bf070.chunk.js.map": "/PresaleDapp/static/js/453.df3bf070.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e0996080.css",
-    "static/js/main.e7ff5017.js"
+    "static/js/main.d7cdb001.js"
   ]
 }
