@@ -2,35 +2,71 @@ import React from 'react';
 import { Box, Container, Flex, Text, Image } from '@chakra-ui/react';
 import PresaleCard from './components/PresaleCard';
 import './styles/Background.css';
-import dogecatLogo from './assets/dogecatai.png';
+import infaiLogo from './assets/infai.png';
 
 function App() {
   return (
     <div className="dogecat-background">
-      <Container maxW="container.lg" pt={0} pb={4} className="dogecat-content">
-        <Flex direction="column" align="center" gap={0}>
-          {/* Logo displayed directly on the background */}
-          <Image 
-            src={dogecatLogo} 
-            alt="DOGECAT" 
-            width="80%" 
-            maxWidth="500px"
-            height="auto" 
-            objectFit="contain"
-            className="floating"
-            position="relative"
-            zIndex={2}
-            marginBottom="-30px"
-          />
+      <Container 
+        maxW="container.lg" 
+        className="dogecat-content"
+        display="flex" 
+        flexDirection="column" 
+        height="100%" 
+      >
+        {/* ScrollableFlex: This Flex grows and handles scrolling */}
+        <Flex 
+          direction="column" 
+          flexGrow={1} 
+          width="100%" 
+          overflowY="auto" 
+          minHeight="0" 
+        >
+          {/* Card Centering Area - This will grow and push footer down */}
+          <Flex
+            direction="column"
+            flexGrow={1} // Key for pushing footer down
+            width="100%"
+            alignItems="center" // Horizontally center content in this area
+            justifyContent="center" // Vertically center PresaleCard within this growing area
+            py={4} // Padding around the card area
+          >
+            {/* Logo above PresaleCard */}
+            <Flex 
+              justifyContent="center" // Center the image horizontally
+              mb={4}                  // Margin below the logo
+              width="100%" 
+              maxW="lg"               // Align with PresaleCard's maxW
+              mx="auto"               // Center the Flex container itself
+            >
+              <Image 
+                src={infaiLogo} 
+                alt="INFAI Logo" 
+                maxH="220px" // Reduced height
+                objectFit="contain" 
+              />
+            </Flex>
+            
+            {/* Main presale card wrapper */}
+            <Box 
+              width="100%" // PresaleCard has its own maxW
+              display="flex"
+              justifyContent="center"
+            >
+              <PresaleCard />
+            </Box>
+          </Flex>
           
-          {/* Main presale card */}
-          <Box width="100%" position="relative" zIndex={1}>
-            <PresaleCard />
-          </Box>
-          
-          <Box mt={4} textAlign="center" bg="rgba(255, 255, 255, 0.6)" p={2} borderRadius="md">
+          {/* Footer wrapper - now a direct child of ScrollableFlex */}
+          <Box 
+            width="100%" 
+            textAlign="center" 
+            bg="rgba(255, 255, 255, 0.6)" 
+            p={2} 
+            borderRadius="md"
+          >
             <Text fontSize="sm" color="gray.700">
-              &copy; {new Date().getFullYear()} DOGECAT Token. All rights reserved.
+              &copy; {new Date().getFullYear()} INFAI Token. All rights reserved.
             </Text>
           </Box>
         </Flex>
