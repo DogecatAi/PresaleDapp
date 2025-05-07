@@ -490,13 +490,18 @@ const PresaleCard: React.FC = () => {
               <Text fontSize="sm">Min Contribution: {formatNumber(minContribution)} ETH</Text>
               <Text fontSize="sm">Max Contribution: {formatNumber(maxContribution)} ETH</Text>
               
-              <Flex mt={3}>
+              <Flex 
+                mt={3} 
+                direction={{ base: 'column', md: 'row' }} // Stack on mobile, row on md and up
+                alignItems={{ base: 'stretch', md: 'center' }} // Stretch items on mobile for full width input/button
+              >
                 <Input
                   placeholder={`Enter ETH (Min ${formatNumber(minContribution)})`}
                   value={contributionAmount}
                   onChange={handleContributionAmountChange}
                   type="number"
-                  mr={3}
+                  mr={{ base: 0, md: 3 }} // Margin right only on desktop
+                  mb={{ base: 3, md: 0 }} // Margin bottom only on mobile
                   focusBorderColor="teal.500"
                 />
                 <Button
@@ -504,6 +509,7 @@ const PresaleCard: React.FC = () => {
                   onClick={handleContribute}
                   isLoading={isContributing}
                   disabled={isContributing || !presaleActive || emergencyStopActive || parseFloat(contributionAmount) <= 0 || parseFloat(contributionAmount) < parseFloat(minContribution) || parseFloat(contributionAmount) > parseFloat(maxContribution)}
+                  width={{ base: '100%', md: 'auto' }} // Full width on mobile, auto on desktop
                 >
                   Contribute
                 </Button>
@@ -673,34 +679,56 @@ const PresaleCard: React.FC = () => {
 
   // Main component render
   return (
-    <Card
-      p={5}
-      shadow="xl"
+    <Card 
+      bg="rgba(255, 255, 255, 0.9)" // 90% opaque white background
       borderWidth="1px"
-      borderRadius="xl"
-      bg="rgba(255, 255, 255, 0.9)" // Changed to 90% opaque white
-      maxWidth={{ base: '90%', md: '600px' }}
-      width="100%"
-      position="relative"
+      borderColor="gray.200"
+      borderRadius="xl" // Slightly more rounded corners
+      boxShadow="2xl" // More pronounced shadow
+      maxW="lg" 
+      mx="auto" 
+      mt={8} // Margin top
+      mb={8} // Margin bottom
     >
-      <CardHeader>
-        <Flex align="center" justify="space-between" width="100%"> 
-          <Heading size="lg" color="teal.600" textAlign="center" flexGrow={1}>{tokenSymbol} Token Presale</Heading>
-          {account && (
-            <Button 
-              size="sm" 
-              variant="outline" 
-              onClick={handleDisconnectWallet}
-              title="Disconnect Wallet"
-              ml={2}
-            >
-              Disconnect: {truncateAddress(account)}
-            </Button>
-          )}
-        </Flex>
-      </CardHeader>
+      <CardHeader pb={2}> {/* Reduced padding bottom for header */}
+          <Flex
+            direction={{ base: 'column', md: 'row' }} // Stack on mobile, row on md and up
+            justifyContent="space-between" 
+            alignItems="center" 
+            gap={{ base: 2, md: 0 }} // Add gap for stacked layout on mobile
+          >
+            <Heading size={{ base: 'sm', md: 'md' }} color="purple.700" textAlign={{ base: 'center', md: 'left' }}>
+              INFAI Token Presale
+            </Heading>
+            {isWalletInstalled ? (
+              isWalletConnected ? (
+                <Button
+                  onClick={handleDisconnectWallet}
+                  colorScheme="red"
+                  variant="outline"
+                  size="sm"
+                  width={{ base: 'full', md: 'auto' }} // Full width on mobile
+                >
+                  Disconnect: {truncateAddress(account)}
+                </Button>
+              ) : (
+                <Button
+                  onClick={connectWallet}
+                  isLoading={isConnecting}
+                  colorScheme="orange"
+                  size="sm"
+                  width={{ base: 'full', md: 'auto' }} // Full width on mobile
+                >
+                  Connect Wallet
+                </Button>
+              )
+            ) : (
+              <Text color="red.500" fontSize="sm" textAlign={{ base: 'center', md: 'right' }}>MetaMask not installed.</Text>
+            )}
+          </Flex>
+        </CardHeader>
 
-      <CardBody>
+      <CardBody pt={4}> {/* Adjusted padding top for card body */}
         {renderMainContent()}
         {isOwner && (
           <Box p={5} borderWidth="1px" borderRadius="lg" shadow="md" mt={8} borderColor="purple.300">
